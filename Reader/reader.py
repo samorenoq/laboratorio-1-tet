@@ -119,6 +119,9 @@ def send_to_client(client_socket: socket.socket, msg: str) -> None:
 
 
 def main():
+    print('______________________________________\n')
+    print('________________READER________________\n')
+    print('______________________________________\n')
     execute_server()
 
 

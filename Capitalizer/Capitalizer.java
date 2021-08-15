@@ -17,6 +17,9 @@ public class Capitalizer {
     public static final String encodingFormat = "UTF-8";
 
     public static void main(String[] args) {
+        System.out.println("_______________________________________\n");
+        System.out.println("______________CAPITALIZER______________\n");
+        System.out.println("_______________________________________\n");
         try {
             // Create a new server socket on port 50001
             ServerSocket serverSocket = new ServerSocket(capitalizerPort);

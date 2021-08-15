@@ -40,12 +40,12 @@ def handle_inputs():
         else:
             client_socket.send(bytes(message, encoding))
 
-            print('______________________________________')
+            print('______________________________________\n')
 
             # Get the response from the reader
             response = client_socket.recv(buff_size)
             print(
-                f'\nReader response: {response.decode(encoding)}\n')
+                f'Reader response: {response.decode(encoding)}\n')
 
             # Get the response from the capitalizer, sent by the reader
             capitalizer_response = client_socket.recv(buff_size)
@@ -65,6 +65,9 @@ def handle_inputs():
 
 
 def main():
+    print('______________________________________\n')
+    print('________________CLIENT________________\n')
+    print('______________________________________\n')
     execute_client()
 
 

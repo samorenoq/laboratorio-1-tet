@@ -5,6 +5,10 @@ const PORT = 50002;
 const ENCODING = "utf8";
 const EXIT = 0;
 
+console.log("______________________________________\n");
+console.log("_______________REVERSER_______________\n");
+console.log("______________________________________\n");
+
 //Create a new node server
 const reverser = net.createServer();
 reverser.listen(PORT, HOST);
