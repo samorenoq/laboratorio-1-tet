@@ -46,11 +46,6 @@ def handle_inputs():
             response = client_socket.recv(buff_size)
             print(
                 f'Reader response: {response.decode(encoding).strip()}\n')
-
-            # Get the response from the capitalizer, sent by the reader
-            # capitalizer_response = client_socket.recv(buff_size)
-            # if (capitalizer_response):
-            #     print(f'Capitalizer response: {capitalizer_response.decode(encoding)}')
             
             # Get the response from the reverser, sent by the reader, if string was valid
             reverser_response = None
