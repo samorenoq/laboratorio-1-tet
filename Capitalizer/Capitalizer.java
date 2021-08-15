@@ -11,24 +11,29 @@ import java.net.Socket;
  * @author Santiago Moreno
  */
 public class Capitalizer {
-    public static final int port = 50001;
+    public static final int capitalizerPort = 50001;
+    public static final int reverserPort = 50002;
+    public static final String reverserAddress = "127.0.0.1";
     public static final String encodingFormat = "UTF-8";
 
     public static void main(String[] args) {
         try {
             // Create a new server socket on port 50001
-            ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Capitalizer is listening on port " + port + "\n");
+            ServerSocket serverSocket = new ServerSocket(capitalizerPort);
+            System.out.println("Capitalizer is listening on port " + capitalizerPort + "\n");
 
             // Accept new connections
             while (true) {
                 // New client connections
                 Socket clientSocket = serverSocket.accept();
-                System.out.println(clientSocket.getInetAddress().toString() + " connected on their port "
-                        + clientSocket.getPort() + "\n");
+                System.out.println("\n" + clientSocket.getInetAddress().toString().substring(1)
+                        + " connected on their port " + clientSocket.getPort() + "\n");
 
-                //Create new thread to handle client
-                new ClientThread(clientSocket, encodingFormat).start();
+                // Connect to reverser socket
+                Socket reverserSocket = new Socket(reverserAddress, reverserPort);
+
+                // Create new thread to handle client
+                new ClientThread(clientSocket, reverserSocket, encodingFormat).start();
             }
 
         } catch (IOException ex) {

@@ -6,12 +6,17 @@ import client_constants
 # Define new socket connection object for the client
 client_socket = socket.socket()
 
+# Define constant variables
+encoding = client_constants.ENCODING_FORMAT
+buff_size = client_constants.RECV_BUFFER_SIZE
 
 # Start the client
+
+
 def execute_client():
     # This tuple contains the server port
     server_tuple = (client_constants.SERVER_ADDRESS,
-                         client_constants.SERVER_PORT)
+                    client_constants.SERVER_PORT)
     client_socket.connect(server_tuple)
     # This tuple contains the client port
     client_connection_tuple = client_socket.getsockname()
@@ -29,14 +34,30 @@ def handle_inputs():
     while message != str(client_constants.EXIT):
         message = input(message_prompt)
 
-        #Check that message is not empty
+        # Check that message is not empty
         if message == '':
-            print('Empty message! Please try again...')
+            print('Empty message! Please try again...\n')
         else:
-            client_socket.send(bytes(message, client_constants.ENCODING_FORMAT))
-            response = client_socket.recv(client_constants.RECV_BUFFER_SIZE)
+            client_socket.send(bytes(message, encoding))
+
+            print('______________________________________')
+
+            # Get the response from the reader
+            response = client_socket.recv(buff_size)
             print(
-                f'Server response: {response.decode(client_constants.ENCODING_FORMAT)}\n')
+                f'\nReader response: {response.decode(encoding)}\n')
+
+            # Get the response from the capitalizer, sent by the reader
+            capitalizer_response = client_socket.recv(buff_size)
+            if (capitalizer_response):
+                print(f'Capitalizer response: {capitalizer_response.decode(encoding)}')
+            
+            # Get the response from the reverser, sent by the reader
+            reverser_response = client_socket.recv(buff_size)
+            if (reverser_response):
+                print(f'Reverser response: {reverser_response.decode(encoding).strip()}')
+
+            print('______________________________________\n')
 
     # If the user exits the program
     print('Exiting...')

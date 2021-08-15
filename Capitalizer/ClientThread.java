@@ -9,12 +9,17 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientThread extends Thread {
-    private Socket clientSocket;
+    private Socket clientSocket, reverserSocket;
     private String encodingFormat;
+    private String clientAddress;
+    private Integer clientPort;
 
-    public ClientThread(Socket clientSocket, String encodingFormat) {
+    public ClientThread(Socket clientSocket, Socket reverserSocket, String encodingFormat) {
         this.clientSocket = clientSocket;
+        this.reverserSocket = reverserSocket;
         this.encodingFormat = encodingFormat;
+        this.clientAddress = clientSocket.getInetAddress().toString().substring(1);
+        this.clientPort = clientSocket.getPort();
     }
 
     public void run() {
@@ -37,20 +42,43 @@ public class ClientThread extends Thread {
 
                 // If the client isn't quitting, print message
                 if (!clientText.equals("0")) {
+                    System.out.println("______________________________________\n");
                     // Print client text
-                    System.out.println("The original message was: " + clientText);
+                    System.out.println("Message from the reader at " + clientAddress + ":" + clientPort + ": "
+                            + clientText + "\n");
                     // Print modified text
-                    System.out.println("The capitalized message is: " + allCapsText);
-                    // Write response through socket
-                    printWriter.println("40 - MSG OK -> TRANSFERRING TO REVERSER");
+                    System.out.println("Message to reverser: " + allCapsText + "\n");
+                    // Send capitalizer response through socket
+                    printWriter.println("40 - MSG OK -> " + allCapsText);
+
+                    // Send message through socket to the reverser
+                    ReverserClient reverserClient = new ReverserClient(reverserSocket, this.encodingFormat);
+                    String reverserResponse = reverserClient.sendMessageToReverser(allCapsText);
+
+                    // Print the reverser response
+                    System.out.println("Reverser response: " + reverserResponse);
+
+                    System.out.println("______________________________________\n");
+
+                    // Send reverser response through socket
+                    printWriter.println(reverserResponse + "\n");
                 }
             } while (!clientText.equals("0"));
 
-            System.out.println("Client with address " + clientSocket.getInetAddress().toString() + " on port "
-                    + clientSocket.getPort() + " disconnected\n");
+            // Send message through socket to the reverser
+            ReverserClient reverserClient = new ReverserClient(reverserSocket, this.encodingFormat);
+            String reverserResponse = reverserClient.sendMessageToReverser(clientText);
+
+            // Print the reverser response
+            System.out.println("Reverser response: " + reverserResponse + "\n");
+
+            System.out.println("Closing connection to Reverser...\n");
+
+            System.out.println("Client with address " + clientSocket.getInetAddress().toString().substring(1)
+                    + " on port " + clientSocket.getPort() + " disconnected\n");
 
             // Send exit response to Reader
-            printWriter.println("10 - QUIT\n");
+            printWriter.println("10 - QUIT");
             clientSocket.close();
 
         } catch (IOException ex) {
