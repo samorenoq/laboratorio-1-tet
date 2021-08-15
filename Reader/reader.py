@@ -3,6 +3,7 @@
 import reader_constants
 import socket
 import threading
+import time
 
 # Define some variables that are constant
 encoding = reader_constants.ENCODING_FORMAT
@@ -100,11 +101,6 @@ def send_to_capitalizer(capitalizer_socket: socket.socket, client_socket: socket
     print(
         f'Capitalizer response: {capitalizer_response.decode(encoding).strip()}')
     print('______________________________________\n')
-
-    # Send the capitalizer resopnse to the client
-    if (capitalizer_response):
-        send_to_client(
-            client_socket, f'{capitalizer_response.decode(encoding)}')
 
     # Send the reverser response, received from the capitalizer, to the client
     reverser_response = capitalizer_socket.recv(buff_size)

@@ -45,15 +45,17 @@ def handle_inputs():
             # Get the response from the reader
             response = client_socket.recv(buff_size)
             print(
-                f'Reader response: {response.decode(encoding)}\n')
+                f'Reader response: {response.decode(encoding).strip()}\n')
 
             # Get the response from the capitalizer, sent by the reader
-            capitalizer_response = client_socket.recv(buff_size)
-            if (capitalizer_response):
-                print(f'Capitalizer response: {capitalizer_response.decode(encoding)}')
+            # capitalizer_response = client_socket.recv(buff_size)
+            # if (capitalizer_response):
+            #     print(f'Capitalizer response: {capitalizer_response.decode(encoding)}')
             
-            # Get the response from the reverser, sent by the reader
-            reverser_response = client_socket.recv(buff_size)
+            # Get the response from the reverser, sent by the reader, if string was valid
+            reverser_response = None
+            if response.decode(encoding).strip() != "20 - INVALID CHARACTERS":
+                reverser_response = client_socket.recv(buff_size)
             if (reverser_response):
                 print(f'Reverser response: {reverser_response.decode(encoding).strip()}')
 

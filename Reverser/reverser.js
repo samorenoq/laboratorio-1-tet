@@ -30,7 +30,7 @@ reverser.on("connection", (clientSocket) => {
 
       //Print message from the capitalizer
       console.log(
-        `Message from the capitalizer at ${clientAddress}:${clientPort} was: ${data.toString(
+        `Message from the capitalizer at ${clientAddress}:${clientPort}: ${data.toString(
           ENCODING
         )}`
       );
