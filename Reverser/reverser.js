@@ -1,6 +1,6 @@
 const net = require("net");
 
-const HOST = "3.239.0.55"; //AWS instance public IP
+const HOST = "172.31.71.163"; //AWS instance private IP
 const PORT = 50002;
 const ENCODING = "utf8";
 const EXIT = 0;
