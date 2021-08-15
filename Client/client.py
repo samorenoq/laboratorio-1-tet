@@ -10,9 +10,9 @@ client_socket = socket.socket()
 # Start the client
 def execute_client():
     # This tuple contains the server port
-    client_port_tuple = (client_constants.SERVER_ADDRESS,
+    server_tuple = (client_constants.SERVER_ADDRESS,
                          client_constants.SERVER_PORT)
-    client_socket.connect(client_port_tuple)
+    client_socket.connect(server_tuple)
     # This tuple contains the client port
     client_connection_tuple = client_socket.getsockname()
     print(
