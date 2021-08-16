@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Import libraries for socket communicaton and constants
 
 import socket
@@ -49,7 +51,8 @@ def handle_inputs():
             
             # Get the response from the reverser, sent by the reader, if string was valid
             reverser_response = None
-            if response.decode(encoding).strip() != "20 - INVALID CHARACTERS":
+            decoded_response = response.decode(encoding).strip() 
+            if decoded_response != "20 - INVALID CHARACTERS" and "50 -" not in decoded_response:
                 reverser_response = client_socket.recv(buff_size)
             if (reverser_response):
                 print(f'Reverser response: {reverser_response.decode(encoding).strip()}')
