@@ -1,5 +1,11 @@
-# laboratorio-1-tet
+# Laboratorio 1 - Tópicos Especiales en Telemática: Sockets
 Repositorio con todo lo necesario para completar el Laboratorio 1 de Tópicos Especiales en Telemática - 2021-2
+
+- [Laboratorio 1 - Tópicos Especiales en Telemática: Sockets](#laboratorio-1---tópicos-especiales-en-telemática-sockets)
+  - [Estructura](#estructura)
+  - [Instrucciones de uso](#instrucciones-de-uso)
+  - [Ejemplo](#ejemplo)
+  - [Información adicional](#información-adicional)
 
 ## Estructura
 Esta aplicación tiene cuatro componentes principales:
@@ -46,3 +52,9 @@ Para correr el cliente, correr el comando python \<_ruta a client.py_\>. Esto co
 * Reverser
   
   ![plot](Example%20Images/reverser-example.png)
+
+
+## Información adicional
+
+* Este es un sistema distribuido y las conexiones entre cualquier par de servicios funcionan como una arquitectura cliente/servidor separada. Por ejemplo, entre Client y Reader hay una arquitectura cliente/servidor en la que Client es el cliente y Reader es el servidor. Entre Reader y Capitalizer también hay una arquitectura cliente/servidor en la que Reader es el cliente y Capitalizer es el servidor. Entre Capitalizer y Reverser también hay una arquitectura cliente/servidor en la que el Capitalizer es el cliente y el Reverser el servidor.
+* Para la conexión por sockets se usaron sockets TCP, principalmente debido a que se quería garantizar la entrega de los datos a cada servicio, sin pérdida de datos, y para no tener que implementar protocolos de reenvío y confiabilidad manualmente. Adicionalmente, todos los servicios que actúan como clientes en este caso esperan una respuesta y no se quiere que otros mensajes interfieran con estos en el proceso, lo cual implica que TCP era una mejor opción que UDP en este caso.
