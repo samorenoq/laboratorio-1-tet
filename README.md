@@ -32,10 +32,17 @@ Para correr el cliente, correr el comando python \<_ruta a client.py_\>. Esto co
 ## Ejemplo
 
 * Client
+
   ![plot](Example%20Images/client-example.png)
+
 * Reader
+  
   ![plot](Example%20Images/reader-example.png)
+
 * Capitalizer
+  
   ![plot](Example%20Images/capitalizer-example.png)
+
 * Reverser
-* ![plot](Example%20Images/reverser-example.png)
+  
+  ![plot](Example%20Images/reverser-example.png)
