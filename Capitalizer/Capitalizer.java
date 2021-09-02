@@ -13,10 +13,10 @@ import java.net.Socket;
  */
 public class Capitalizer {
     public static final int capitalizerPort = 50001;
-    public static final String capitalizerAddress = "3.92.102.22";
+    public static final String capitalizerAddress = "172.31.7.193";
 
     public static final int reverserPort = 50002;
-    public static final String reverserAddress = "34.198.173.64";
+    public static final String reverserAddress = "3.239.0.55";
 
     public static final String encodingFormat = "UTF-8";
 
